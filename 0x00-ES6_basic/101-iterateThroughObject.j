@@ -3,8 +3,10 @@ export default function createIteratorObject(report) {
     a.push(...b);
     return a;
   }, []);
+
   let currIndex = 0;
   const maxIndex = all.length;
+
   return {
     next() {
       if (currIndex < maxIndex) {
@@ -14,6 +16,8 @@ export default function createIteratorObject(report) {
       }
       return { value: null, done: true };
     },
-    [Symbol.iterator]: () => this.next(),
+    [Symbol.iterator]() {
+      return this; // The iterator should return itself
+    },
   };
 }
